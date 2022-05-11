@@ -125,9 +125,15 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 STATICFILES_DIRS = (os.path.join(BASE_DIR, 'static'),)
-LOGIN_URL = 'users:login' #адрес, на который Django будет 
+LOGIN_URL = 'users:login'
+
+
+#адрес, на который Django будет 
 #перенаправлять пользователей для авторизации
-LOGIN_REDIRECT_URL = 'posts:index' # указывается, куда перенаправить 
+
+LOGIN_REDIRECT_URL = 'posts:index'
+
+# указывается, куда перенаправить 
 #пользователя после успешной авторизации
 
 
