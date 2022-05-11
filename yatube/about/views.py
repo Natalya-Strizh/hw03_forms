@@ -1,5 +1,3 @@
-from django.shortcuts import render
-# Импорт класса TemplateView, чтобы унаследоваться от него
 from django.views.generic.base import TemplateView
 
 
