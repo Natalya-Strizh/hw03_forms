@@ -8,19 +8,10 @@ from .forms import PostForm
 COUNT_POSTS = 10
 
 def index(request):
-    post_list = Post.objects.all().order_by('-pub_date')
-    # Если порядок сортировки определен в классе Meta модели,
-    # запрос будет выглядить так:
-    # post_list = Post.objects.all()
-    # Показывать по 10 записей на странице.
+    post_list = Post.objects.all()
     paginator = Paginator(post_list, COUNT_POSTS) 
-
-    # Из URL извлекаем номер запрошенной страницы - это значение параметра page
     page_number = request.GET.get('page')
-
-    # Получаем набор записей для страницы с запрошенным номером
     page_obj = paginator.get_page(page_number)
-    # Отдаем в словаре контекста
     context = {
         'page_obj': page_obj,
     }
@@ -35,32 +26,28 @@ def group_posts(request, slug):
     page_obj = paginator.get_page(page_number)
     context = {
         'group': group,
-        'posts': page_obj,
+        'page_obj': page_obj,
     }
     return render(request, 'posts/group_list.html', context)
 
 def profile(request, username):
-    # Здесь код запроса к модели и создание словаря контекста
     author = get_object_or_404(User, username=username)
-    post_list = Post.object.filter(author=author)
+    post_list = Post.objects.filter(author=author)
     paginator = Paginator(post_list, COUNT_POSTS) 
     page_number = request.GET.get('page')
     page_obj = paginator.get_page(page_number)
     context = {
         'page_obj': page_obj,
-        'username': author,
+        'author': author,
     }
     return render(request, 'posts/profile.html', context)
 
 
 def post_detail(request, post_id):
-    # Здесь код запроса к модели и создание словаря контекста 
+    print(post_id)
     post_number = get_object_or_404(Post, pk=post_id)
-    posts = Post.objects.filter(pk=post_id)
     context = {
         'post_number': post_number,
-    }
-    context = {
     }
     return render(request, 'posts/post_detail.html', context)
 

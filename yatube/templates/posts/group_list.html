@@ -1,12 +1,12 @@
 <!DOCTYPE html>
 {% extends 'base.html' %}
-{% block title %}{{ title }}{% endblock %}
+{% block title %}{{ group.title }}{% endblock %}
 {% block content %}
 <h1>{{ group }}</h1>
 <p>
-  {{ description }}
+  {{ group.description }}
 </p>
-{% for post in posts %}
+{% for post in page_obj %}
 <article>
   <ul>
     <li>
@@ -18,6 +18,9 @@
   </ul>      
   <p>
     {{ post.text }}
+    {% if request.user == post.author %}
+    <a href="{% url 'posts:post_update' post.id  %}">редактировать пост</a>
+    {% endif %}
   </p>         
 </article>
 {% if not forloop.last %}<hr>{% endif %}

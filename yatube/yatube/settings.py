@@ -129,7 +129,7 @@ LOGIN_URL = 'users:login' #адрес, на который Django будет
 #перенаправлять пользователей для авторизации
 LOGIN_REDIRECT_URL = 'posts:index' # указывается, куда перенаправить 
 #пользователя после успешной авторизации
-LOGOUT_REDIRECT_URL = 'posts:index' # Адрес, на который будет
+#LOGOUT_REDIRECT_URL = 'posts:index' # Адрес, на который будет
 # направлен пользователь после выхода из системы
 
 #  подключаем движок filebased.EmailBackend
