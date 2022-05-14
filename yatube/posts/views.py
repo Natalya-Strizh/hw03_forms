@@ -1,9 +1,13 @@
+from tokenize import group
 from django.contrib.auth.decorators import login_required
 from django.core.paginator import Paginator
 from django.shortcuts import get_object_or_404, redirect, render
 from .models import Group, Post, User
 from .forms import PostForm
+
+
 COUNT_POSTS = 10
+
 
 
 def index(request):
@@ -19,7 +23,7 @@ def index(request):
 
 def group_posts(request, slug):
     group = get_object_or_404(Group, slug=slug)
-    post_list = Post.objects.all().order_by('-pub_date')
+    post_list = Post.objects.all()
     paginator = Paginator(post_list, COUNT_POSTS)
     page_number = request.GET.get('page')
     page_obj = paginator.get_page(page_number)
@@ -44,7 +48,6 @@ def profile(request, username):
 
 
 def post_detail(request, post_id):
-    print(post_id)
     post_number = get_object_or_404(Post, pk=post_id)
     context = {
         'post_number': post_number,
