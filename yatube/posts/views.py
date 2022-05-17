@@ -8,7 +8,7 @@ COUNT_POSTS = 10
 
 
 def index(request):
-    post_list = Post.objects.all()
+    post_list = Post.objects.select_related('group', 'author').all()
     paginator = Paginator(post_list, COUNT_POSTS)
     page_number = request.GET.get('page')
     page_obj = paginator.get_page(page_number)
@@ -20,7 +20,7 @@ def index(request):
 
 def group_posts(request, slug):
     group = get_object_or_404(Group, slug=slug)
-    post_list = Post.objects.all()
+    post_list = group.posts.select_related('author').all()
     paginator = Paginator(post_list, COUNT_POSTS)
     page_number = request.GET.get('page')
     page_obj = paginator.get_page(page_number)
@@ -33,7 +33,7 @@ def group_posts(request, slug):
 
 def profile(request, username):
     author = get_object_or_404(User, username=username)
-    post_list = Post.objects.filter(author=author)
+    post_list = author.posts.select_related('author').all()
     paginator = Paginator(post_list, COUNT_POSTS)
     page_number = request.GET.get('page')
     page_obj = paginator.get_page(page_number)
